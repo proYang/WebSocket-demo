@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>WebSocket</title>
+</head>
+
+<body>
+  <script>
+    testWS()
+    function testWS() {
+      if (!"WebSocket" in window) console.error("WebSocket is not supported!!")
+      var ws = new WebSocket('ws://127.0.0.1:3200')
+      ws.onopen = function () {
+        // Web Socket 已连接上，使用 send() 方法发送数据
+        ws.send("发送数据");
+        console.log("数据发送中...");
+      }
+
+      ws.onmessage = function (event) {
+        console.log('message occured:' + event.data)
+        console.log("数据已接收...");
+      }
+
+      ws.onclose = function () {
+        // 关闭 websocket
+        console.log("连接已关闭...");
+      }
+
+      ws.onerror = function (event) {
+        console.log('Error occured:' + event.data)
+      }
+    }
+  </script>
+</body>
+
+</html>
